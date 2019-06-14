@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button, Collapse } from 'reactstrap';
-import Octicon, { ChevronDown, ChevronUp, Trashcan, Pencil } from '@githubprimer/octicons-react';
+import Octicon, { ChevronDown, ChevronUp, Trashcan } from '@githubprimer/octicons-react';
 import { Row, Col } from 'reactstrap';
 
 import PatientInfo from './PatientInfo';
 import PatientAdmin from './PatientAdmin'
+import EditInfo from './EditInfo'
 class PatientItem extends Component {
     constructor(props) {
         super(props);
@@ -79,12 +80,8 @@ class PatientItem extends Component {
                 <Button color="danger" onClick={this.deletePat} className="mr-1">
                     <Octicon icon={Trashcan} />
                 </Button>
-                <Button color="info" className="mr-1">
-                    <Octicon icon={Pencil} />
-                </Button>
+               <EditInfo patient={patient} />        
             </div>
-
-
 
         return (
             <ListGroupItem>

@@ -45,10 +45,11 @@ class AdminPanel extends Component {
                             <Button color="primary" className="ml-1 px-3" onClick={this.toggleList}>
                                 <Octicon size={20} icon={this.state.isOpenList ? ChevronUp : ChevronDown} />
                             </Button>
-                        </div>
+                        </div>                       
                         <Collapse isOpen={this.state.isOpenList} className="mt-2">
-                            <PatientsList isAdmin={true} />
-                        </Collapse>
+                            {this.state.isOpenList ? 
+                            <PatientsList isAdmin={true} /> : null}
+                        </Collapse>                       
                     </Col>
                 </Row>
                 <Row className="mt-2">

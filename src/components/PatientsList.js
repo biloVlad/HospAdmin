@@ -15,7 +15,7 @@ class PatientsList extends Component {
             collapsed: true,
             dropdownOpen: false
         };
-        this.loadPatientsFromDB = this.loadPatientsFromDB.bind(this);
+        this.loadPatientsFromDB = this.loadPatientsFromDB.bind(this);      
     }
 
     loadPatientsFromDB() {
@@ -40,8 +40,7 @@ class PatientsList extends Component {
     }
 
     getListPatients() {
-        const {isAdmin} = this.props;      
-        
+        const {isAdmin} = this.props;
         return (
             <ListGroup>
                 {this.state.patients.map((item, index) => (
@@ -52,7 +51,7 @@ class PatientsList extends Component {
         );
     }
 
-    content() {
+    content() {       
         if (this.state.isLoaded)
             return (
                 <div>

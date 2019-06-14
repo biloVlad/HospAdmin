@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from './components/Home'
 import AdminPanel from './components/AdminPanel'
+import About from './components/About';
 
 class App extends Component {
 
@@ -39,7 +40,7 @@ class App extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink herf="/about">
+                  <NavLink href="/about">
                     Про проект
                   </NavLink>
                 </NavItem>
@@ -49,6 +50,7 @@ class App extends Component {
 
           <Route exact path="/" component={Home} />
           <Route exact path="/admin" component={AdminPanel} />
+          <Route exact path="/about" component={About} />
         </Router>
 
       </div>

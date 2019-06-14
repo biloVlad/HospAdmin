@@ -27,6 +27,7 @@ class RegisterPatient extends Component {
         this.setError = this.setError.bind(this)
         this.setSuccess = this.setSuccess.bind(this)
         this.hideAlert = this.hideAlert.bind(this)
+        this.setTestData = this.setTestData.bind(this)
 
     }
     setSuccess(result) {
@@ -45,7 +46,7 @@ class RegisterPatient extends Component {
     handleChangeInput = event => {
         this.setState({ [event.target.name]: event.target.value });
 
-        let reg = new RegExp();
+        let reg = new RegExp("");
         if (
             event.target.name === "name" ||
             event.target.name === "lastname" ||
@@ -53,7 +54,7 @@ class RegisterPatient extends Component {
             event.target.name === "doctor" ||
             event.target.name === "pser"
         ) {
-            reg = /^[a-zA-Zа-яА-Я]+$/;
+            reg = /^[a-zA-Zа-яА-Яі]+$/;
         } else if (
             event.target.name === "org" ||
             event.target.name === "orgunit" ||
@@ -61,13 +62,13 @@ class RegisterPatient extends Component {
             event.target.name === "nameMed" ||
             event.target.name === "cod"
         ) {
-            reg = /^[a-zA-Zа-яА-Я0-9]+$/;
+            reg = /^[a-zA-Zа-яА-Я0-9і]+$/;
         } else if (
             event.target.name === "pnum" ||
             event.target.name === "time" ||
             event.target.name === "count"
         ) {
-            reg = /^0*(?:(?!999\.9\d*$)\d{0,3}(?:\.\d*)?|999\.0*)$/;
+            reg = /[ ""]/;
         }
 
 
@@ -83,7 +84,7 @@ class RegisterPatient extends Component {
     }
 
     sendRequestForReg(dataBody) {
-        fetch('http://hospitalbilo.com/hosp/patient/delete', {
+        fetch('http://hospitalbilo.com/hosp/patient/new', {
             method: 'POST',
             body: dataBody
         })
@@ -92,7 +93,7 @@ class RegisterPatient extends Component {
                 (result) => {
                     return (
                         (result.status === "success") ?
-                            window.location.reload() : null
+                            this.setSuccess(result) : this.setError(result)
 
                     );
                 },
@@ -102,7 +103,6 @@ class RegisterPatient extends Component {
             );
     }
     regPat = event => {
-        console.log(event.target);
 
         const {
             name,
@@ -167,6 +167,24 @@ class RegisterPatient extends Component {
             }
         }
 
+    }
+    setTestData() {
+        this.setState({
+            name: "Іван",
+            lastname: "Іванов",
+            surename: "Іванович",
+            pser: "АА",
+            pnum: "123456",
+            org: "Поліклініка",
+            orgunit: "5",
+            room: "1а",
+            doctor: "Іванов Іван Іванович",
+            nameMed: "Мукалтін",
+            cod: "123a123f",
+            time: "3",
+            count: "1",
+           isValid: true
+        });
     }
     render() {
         const {
@@ -239,8 +257,12 @@ class RegisterPatient extends Component {
                                 placeholder="Номер паспорту"
                                 onChange={this.handleChangeInput}
                                 value={pnum || ""}
+                                max={999999}
                             >
                             </Input>
+                            <InputGroupAddon addonType="append">
+                                <Button onClick={this.setTestData}>Тестові дані</Button>
+                            </InputGroupAddon>
                         </InputGroup>
                     </Col>
                 </Row>
@@ -319,6 +341,8 @@ class RegisterPatient extends Component {
                                 <Button onClick={this.regPat} color="success">Зареєструвати</Button>
                             </InputGroupAddon>
                         </InputGroup>
+
+
                     </Col>
                 </Row>
             </div>
